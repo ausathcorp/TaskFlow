@@ -1,0 +1,25 @@
+# environments variables
+.env
+.env*
+!.env.example
+
+#distination and node_modules
+
+node_modules
+
+dist
+build
+
+#logs file
+.log
+*.log
+*.log.*
+
+#test files
+test.*
+.test
+*.test
+*.test.*
+
+#nested readme files
+*/README.md
