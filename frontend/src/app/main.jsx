@@ -6,6 +6,13 @@ import { StoreProvider } from './providers'
 import { AppThemeProvider } from '@/features/theme'
 import { SnackbarProvider } from '@/features/snackbar'
 
+(async() => {
+    if (!import.meta.env.DEV)
+        return
+    let eruda = await import('eruda');
+    eruda.init();
+})();
+
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <StoreProvider>
