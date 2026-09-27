@@ -13,6 +13,9 @@ import { SnackbarProvider } from '@/features/snackbar'
     eruda.init();
 })();
 
+import { AppThemeProvider } from '@/features/theme'
+import { SnackbarProvider } from '@/features/snackbar'
+
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <StoreProvider>
