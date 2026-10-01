@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '@/features/auth/register/authSlice'
-import api from '@/features/auth/register/api'
+import authReducer from '@/features/auth/shared/services/authSlice'
+import api from '@/features/auth/shared/services/api'
 export default configureStore({
     reducer: {
         auth: authReducer,

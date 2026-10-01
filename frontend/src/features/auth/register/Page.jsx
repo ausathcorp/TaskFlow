@@ -16,12 +16,12 @@ import ArrowForward from '@mui/icons-material/ArrowForward'
 
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { Controller } from 'react-hook-form'
-import useRegisterForm from './hooks/useRegisterForm'
+import useRegisterForm from './useRegisterForm'
 
-import UsernameField from './components/UsernameField'
-import PasswordField from './components/PasswordField'
-import EmailField from './components/EmailField'
-import ContactField from './components/ContactField'
+import UsernameField from '../shared/components/UsernameField'
+import PasswordField from '../shared/components/PasswordField'
+import EmailField from '../shared/components/EmailField'
+import ContactField from '../shared/components/ContactField'
 
 export default function Register(){
     const {

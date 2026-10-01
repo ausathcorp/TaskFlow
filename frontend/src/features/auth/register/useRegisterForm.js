@@ -1,5 +1,5 @@
-import { useRegisterMutation } from '../api'
-import { setAuthenticatedUser } from '../authSlice'
+import { useRegisterMutation } from '../shared/services/api'
+import { setAuthenticatedUser } from '../shared/services/authSlice'
 
 import { useForm } from 'react-hook-form'
 
