@@ -1,7 +1,7 @@
-import { createUserAndSession } from './services/user.js'
+import { createUserAndSession } from '../shared/services/user.js'
 import {
     setAccessToken,
-    setRefreshToken } from './services/token.js'
+    setRefreshToken } from '../shared/services/token.js'
 import { matchedData } from 'express-validator'
 
 export default async function createUserAccount(req, res){

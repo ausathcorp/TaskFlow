@@ -20,6 +20,7 @@ const profileSchema = new Schema({
 }, {_id: false});
 
 export const userSchema = new Schema({
+    avatar: String,
     username: {
         type: String,
         minLength: 5,
@@ -46,14 +47,12 @@ export const userSchema = new Schema({
     },
     googleId: {
         type: String,
-        default: null,
         unique: true,
+        select: false
     },
     enable2fa: {
         type: Boolean,
         default: () => false
     },
     profile: profileSchema
-}, { 
-    timestamps: true
-});
+}, { timestamps: true });

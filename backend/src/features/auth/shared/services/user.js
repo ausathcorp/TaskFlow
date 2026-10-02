@@ -1,11 +1,12 @@
 import { 
     userExistsQuery,
-    insertUserDocument } from '../repos/user.js'
+    insertUserDocument,
+    getUserQuery } from '../repos/user.js'
 
 import { dbTransaction } from './database.js'
 import { createSession } from './session.js'
 
-import { hashPassword } from './password.js'
+import { hashPassword, comparePassword } from './password.js'
 
 export async function usernameExists(username){
     let userExists = await userExistsQuery({ username });
@@ -38,4 +39,15 @@ export async function createUser(registerUser){
         profile
     });
     return userId;
+}
+
+export async function verifyCredential(username, password){
+    let user = await getUserQuery({ username })
+        .select("+passwordHash")
+        .lean()
+        .exec();
+    if(!user) return null;
+    let { passwordHash, __v, ...userData } = user;
+    let validPassword = await comparePassword(password, passwordHash);
+    return validPassword ? userData : null;
 }

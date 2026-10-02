@@ -1,4 +1,4 @@
-import validateRequest from './utils/validate-request.js'
+import validateRequest from '../shared/utils/validate-request.js'
 import { body } from 'express-validator'
 
 const registerValidator = validateRequest([

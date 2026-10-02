@@ -1,6 +1,6 @@
 import { rateLimit } from 'express-rate-limit'
-import { Time } from './utils/constants.js'
-import { authConfig } from './configs/index.js'
+import { Time } from '../shared/utils/constants.js'
+import { authConfig } from '../shared/configs/index.js'
 
 let { limit, window_ms } = authConfig.register.limiter;
 export default rateLimit({

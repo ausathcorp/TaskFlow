@@ -1,8 +1,8 @@
 import { matchedData } from 'express-validator'
 import {
     usernameExists,
-    emailExists } from './services/user.js'
-import AuthError from './utils/auth-error.js'
+    emailExists } from '../shared/services/user.js'
+import AuthError from '../shared/utils/auth-error.js'
 
 export default async function checkUniqueInputs(req, res, next){
     const data = matchedData(req);
