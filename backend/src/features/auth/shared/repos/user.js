@@ -3,7 +3,7 @@ import AuthError from '../utils/auth-error.js'
 
 export async function insertUserDocument(userDoc){
     const newUser = await User.create(userDoc);
-    return newUser._id;
+    return newUser;
 }
 
 export async function userExistsQuery(query){

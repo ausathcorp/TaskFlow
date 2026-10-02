@@ -19,26 +19,26 @@ export async function emailExists(email){
 }
 
 export async function createUserAndSession(registerUser){
-    let accessToken, refreshToken;
+    let accessToken, refreshToken, user;
     await dbTransaction(async() => {
-        let userId = await createUser(registerUser);
-        let sessionData = await createSession(userId);
+        user = await createUser(registerUser);
+        let sessionData = await createSession(user._id);
         accessToken = sessionData.accessToken;
         refreshToken = sessionData.refreshToken;
     });
-    return { accessToken, refreshToken }
+    return { user, accessToken, refreshToken }
 }
 
 export async function createUser(registerUser){
     const { username, email, password, ...profile }  = registerUser;
     const passwordHash = await hashPassword(password);
-    const userId = await insertUserDocument({
+    const user = await insertUserDocument({
         username,
         email,
         passwordHash,
         profile
     });
-    return userId;
+    return user;
 }
 
 export async function verifyCredential(email, password){
