@@ -41,8 +41,8 @@ export async function createUser(registerUser){
     return userId;
 }
 
-export async function verifyCredential(username, password){
-    let user = await getUserQuery({ username })
+export async function verifyCredential(email, password){
+    let user = await getUserQuery({ email })
         .select("+passwordHash")
         .lean()
         .exec();

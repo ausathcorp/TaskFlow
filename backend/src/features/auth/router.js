@@ -7,6 +7,8 @@ import{
     registerMiddleware,
     registerLimiter,
     registerController } from './register/index.js'
+    
+import * as login from './login/index.js'
 
 const router = express.Router();
 
@@ -17,6 +19,15 @@ router.post(
     registerValidator,
     registerMiddleware,
     registerController
+);
+
+//Auth Login Route
+router.post(
+    '/login',
+    login.loginLimiter,
+    login.loginValidator,
+    login.loginMiddleware,
+    login.loginController
 );
 
 router.use(authRouteErrorHandler);

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
-//import Stack from '@mui/material/Stack'
+import Stack from '@mui/material/Stack'
 import { Link } from 'react-router-dom'
 
 export default function App(){
@@ -21,10 +21,13 @@ export default function App(){
                 justifyContent: 'center', 
                 alignItems: 'center'
                 }}>
-               <Typography variant="h3">
+                <Typography variant="h3">
                     Welcome to TaskFlow
-               </Typography>
-               <Link to='/register'>Open register</Link>
+                </Typography>
+                <Stack spacing={1}>
+                    <Link to='/register'>Open register</Link>
+                    <Link to='/login'>Open login</Link>
+                </Stack>
             </Paper>
         </Box>
     )

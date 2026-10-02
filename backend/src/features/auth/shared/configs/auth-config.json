@@ -21,5 +21,12 @@
             "window_ms": 15,
             "limit": 10
         }
+    },
+    "login": {
+        "state": "running",
+        "limiter": {
+            "window_ms": 30,
+            "limit": 5
+        }
     }
 }

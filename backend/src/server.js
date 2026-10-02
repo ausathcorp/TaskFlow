@@ -2,7 +2,7 @@ import 'dotenv/config'
 import app from './app.js'
 import { 
     connectDB, 
-    closeDbConnection } from './features/auth/register/services/database.js'
+    closeDbConnection } from './features/auth/shared/services/database.js'
 
 process.on('uncaughtException', async(err) => {
     console.log('UNCAUGHT EXCEPTION:\n', err);
