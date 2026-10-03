@@ -7,6 +7,7 @@ import { dbTransaction } from './database.js'
 import { createSession } from './session.js'
 
 import { hashPassword, comparePassword } from './password.js'
+import { transformUserDocument } from '../utils/formats.js'
 
 export async function usernameExists(username){
     let userExists = await userExistsQuery({ username });
@@ -47,7 +48,6 @@ export async function verifyCredential(email, password){
         .lean()
         .exec();
     if(!user) return null;
-    let { passwordHash, __v, ...userData } = user;
-    let validPassword = await comparePassword(password, passwordHash);
-    return validPassword ? userData : null;
+    let validPassword = await comparePassword(password, user.passwordHash);
+    return validPassword ? transformUserDocument(user) : null;
 }
