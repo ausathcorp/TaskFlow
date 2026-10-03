@@ -27,6 +27,7 @@ export default function App(){
                 <Stack spacing={1}>
                     <Link to='/register'>Open register</Link>
                     <Link to='/login'>Open login</Link>
+                    <Link to='/forgot-password'>Open forgot password</Link>
                 </Stack>
             </Paper>
         </Box>
