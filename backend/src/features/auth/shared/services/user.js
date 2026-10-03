@@ -22,7 +22,7 @@ export async function createUserAndSession(registerUser){
     let accessToken, refreshToken, user;
     await dbTransaction(async() => {
         user = await createUser(registerUser);
-        let sessionData = await createSession(user._id);
+        let sessionData = await createSession(user.id);
         accessToken = sessionData.accessToken;
         refreshToken = sessionData.refreshToken;
     });

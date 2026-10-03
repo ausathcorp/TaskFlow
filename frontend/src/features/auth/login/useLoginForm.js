@@ -25,7 +25,6 @@ export default function useLoginForm(){
         formState: { errors } } = useForm({ defaultValues });
     
     const onSubmit = async (data) => {
-        console.log(data);
         try{
             const response = await loginUser(data).unwrap();
             if(response.success){
