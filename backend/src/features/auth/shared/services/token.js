@@ -27,12 +27,7 @@ export function setRefreshToken(res, refreshToken, rememberMe=false){
 
 export async function createAccessToken(payload){
     let expiresIn = cookieOptions.accessTokenMaxAge;
-    let token = await jwt.sign(payload, process.env.PRIVATE_KEY, {
-        algorithm: 'RS256',
-        expiresIn: `${expiresIn}m`,
-        issuer: 'taskFlow',
-        audience: 'taskFlow-users'
-    });
+    let token = await createToken(payload, `${expiresIn}m`)
     return token;
 }
 
@@ -40,11 +35,16 @@ export async function createRefreshToken(payload, rememberMe=false){
     let expiresIn = rememberMe ? 
     cookieOptions.rememberMeRefreshTokenMaxAge : 
     cookieOptions.defaultRefreshTokenMaxAge;
-    let token = await jwt.sign(payload, process.env.PRIVATE_KEY, {
+    let token = await createToken(payload, `${expiresIn}d`)
+    return token;
+};
+
+export async function createToken(payload, duration=null){
+  let token = await jwt.sign(payload, process.env.PRIVATE_KEY, {
         algorithm: 'RS256',
-        expiresIn: `${expiresIn}d`,
+        expiresIn: duration,
         issuer: 'taskFlow',
         audience: 'taskFlow-users'
     });
     return token;
-};
+}

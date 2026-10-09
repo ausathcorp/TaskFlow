@@ -1,32 +1,39 @@
 {
-    "authState": {
-        "maintenanceMode": false
-    },
-    "sessionSettings": {
-        "defaultExpiresDays": 1,
-        "rememberMeExpiresDays": 30,
-        "maxExpiresDays": 90,
-        "cookieOptions": {
-            "httpOnly": true,
-            "sameSite": "strict",
-            "secure": false,
-            "accessTokenMaxAge": 15,
-            "defaultRefreshTokenMaxAge": 1,
-            "rememberMeRefreshTokenMaxAge": 30
-        }
-    },
-    "register": {
-        "state": "running",
-        "limiter": {
-            "window_ms": 15,
-            "limit": 10
-        }
-    },
-    "login": {
-        "state": "running",
-        "limiter": {
-            "window_ms": 30,
-            "limit": 5
-        }
+  "authState": {
+    "maintenanceMode": false
+  },
+  "sessionSettings": {
+    "defaultExpiresDays": 1,
+    "rememberMeExpiresDays": 30,
+    "maxExpiresDays": 90,
+    "cookieOptions": {
+      "httpOnly": true,
+      "sameSite": "strict",
+      "secure": false,
+      "accessTokenMaxAge": 15,
+      "defaultRefreshTokenMaxAge": 1,
+      "rememberMeRefreshTokenMaxAge": 30
     }
+  },
+  "register": {
+    "state": "running",
+    "limiter": {
+      "window_ms": 15,
+      "limit": 10
+    }
+  },
+  "login": {
+    "state": "running",
+    "limiter": {
+      "window_ms": 120,
+      "limit": 5
+    }
+  },
+  "forgot_password": {
+    "state": "running",
+    "limiter": {
+      "window_ms": 30,
+      "limit": 5
+    }
+  }
 }

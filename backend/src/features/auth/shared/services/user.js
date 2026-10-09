@@ -51,3 +51,11 @@ export async function verifyCredential(email, password){
     let validPassword = await comparePassword(password, user.passwordHash);
     return validPassword ? transformUserDocument(user) : null;
 }
+
+export async function getUserByEmail(email){
+    let user = await
+    getUserQuery({ email })
+        .lean()
+        .exec();
+    return user;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>TaskFlow Reset Password Verification.</title>
+  </head>
+  <body>
+    <p>Hi <%= username %>,</p>
+    <div style="">
+      
+      <p style="text-align: center;">From <a href="http://localhost:3000">TaskFlow</a></p>
+      <div style="
+        width: 50%; 
+        margin: 5px auto; ">
+        <img alt="Company Logo" src="cid:company-logo" height="auto" />
+      </div>
+    
+      <p style="text-align: center; margin: 5px;">
+        Use the button below to reset your account password,
+        the reset link is valid for only 15 minutes.
+      </p>
+    
+      <p style="
+        text-align: center;
+        margin: 25px auto;">
+        <a style="
+          background-color: #064fdb; 
+          padding: 10px 20px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-size: 12px;
+          color: #fff" href="<%= resetLink %>">
+          Reset Password
+        </a>
+      </p>
+    
+      <p style="text-align: center; margin: 5px;">
+        If you didn't request for this reset email, 
+        kindly cancel the request, 
+        and contact customer care at customaer-care@taskflow.com
+      </p>
+    
+      <p style="
+        text-align: center;
+        margin: 25px auto;">
+        <a style="
+          background-color: #b20707; 
+          padding: 10px 20px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-size: 12px;
+          color: #fff" href="<%= cancelLink %>">
+          Cancel Request
+        </a>
+      </p>
+    
+      <p style="text-align: center;">Notice: Links expires in 15 minutes</p>
+      <p style="text-align: center;">Thanks for choosing us.</p>
+    
+    </div>
+  </body>
+</html>
