@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default function App(){
     return(
@@ -28,6 +28,7 @@ export default function App(){
                     <Link to='/register'>Open register</Link>
                     <Link to='/login'>Open login</Link>
                     <Link to='/forgot-password'>Open forgot password</Link>
+                    <Link to='/reset-password'>Open reset password</Link>
                 </Stack>
             </Paper>
         </Box>
