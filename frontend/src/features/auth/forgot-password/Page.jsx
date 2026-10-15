@@ -1,10 +1,10 @@
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import useForgotPasswordForm from './useForgotPasswordForm'
 import EmailField from '../shared/components/EmailField'
 
@@ -69,11 +69,11 @@ export default function ForgotPasswordPage(){
                     variant="body2"
                     sx={{textAlign: 'center'}}>
                     Password updated? <br />
-                    <Link
-                        component={RouterLink}
+                    <MuiLink
+                        component={Link}
                         to='/login'>
                         Returns to login
-                    </Link>
+                    </MuiLink>
                 </Typography>
                 
             </Stack>

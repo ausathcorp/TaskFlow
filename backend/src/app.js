@@ -3,7 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import CookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import { authRouter } from './features/routers.js'
+import { authRouter, googleRouter } from './features/routers.js'
 
 const app = express();
 
@@ -22,6 +22,7 @@ app.use(CookieParser());
 
 //Auth Api Routes
 app.use('/api/auth', authRouter);
+app.use('/api/google', googleRouter);
 
 
 //global app error handler

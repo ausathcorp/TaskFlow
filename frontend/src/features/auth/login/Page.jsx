@@ -1,13 +1,13 @@
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LoginIcon from '@mui/icons-material/Login'
 
-import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Controller } from 'react-hook-form'
 import useLoginForm from './useLoginForm'
 
@@ -90,11 +90,11 @@ export default function LoginPage(){
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                    <Link
-                        component={RouterLink}
+                    <MuiLink
+                        component={Link}
                         to='/forgot-password'>
                         Forgot password
-                    </Link>
+                    </MuiLink>
                     <Button
                         loading={isLoading}
                         loadingPosition="end"
@@ -110,11 +110,11 @@ export default function LoginPage(){
                     variant="subtitle2" 
                     sx={{textAlign: 'center', lineHeight: 2}}>
                     Don't have an account? <br />
-                    <Link
-                        component={RouterLink}
+                    <MuiLink
+                        component={Link}
                         to='/register'>
                         Create one
-                    </Link>
+                    </MuiLink>
                 </Typography>
                 
             </Stack>
