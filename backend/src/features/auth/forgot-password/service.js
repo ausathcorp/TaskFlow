@@ -18,22 +18,24 @@ export async function createAndSendVerification(user) {
     });
 
     let resetToken = await createResetToken({ 
-      type, 
+      type,
+      hash,
       verificationId, 
       action: "RESET" });
     
     let cancelToken = await createResetToken({ 
       type,
+      hash,
       verificationId, 
       action: "CANCEL" });
 
     let {
-      RESET_PASSWORD_URL = "http://localhost:3000/reset-password/",
-      CANCEL_REQUEST_URL = "http://localhost:5000/reset-password/",
+      RESET_PASSWORD_URL = "http://localhost:3000/reset-password",
+      CANCEL_REQUEST_URL = "http://localhost:5000/reset-password",
     } = process.env;
 
-    let resetLink = `${RESET_PASSWORD_URL}?token=${resetToken}`;
-    let cancelLink = `${CANCEL_REQUEST_URL}?token=${cancelToken}`;
+    let resetLink = `${RESET_PASSWORD_URL}/${resetToken}`;
+    let cancelLink = `${CANCEL_REQUEST_URL}/${cancelToken}`;
     await sendResetPasswordEmail({
       userId,
       email,
