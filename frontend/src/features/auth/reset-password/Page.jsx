@@ -52,13 +52,13 @@ export default function ResetPasswordPage() {
         <PasswordField
           label="Confirm Password"
           autoComplete="new-password"
-          {...register("confirmPassword", {
+          {...register("confirm_password", {
             required: "Confirm password is required",
             validate: (value) =>
-              value === password || "Passwords do not matches",
+              (value === password) || "Passwords do not matches",
           })}
-          error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword?.message}
+          error={!!errors.confirm_password}
+          helperText={errors.confirm_password?.message}
         />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
@@ -73,7 +73,7 @@ export default function ResetPasswordPage() {
           </Button>
         </Stack>
 
-        <Typography variant="body2" sx={{ textAlign: "center" }}>
+        <Typography variant="body2" sx={{ textAlign: "center", lineHeight: 2 }}>
           Session Expired? <br />
           <MuiLink component={Link} to="/forgot-password">
             Send new request.

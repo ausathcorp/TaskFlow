@@ -1,27 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useResetPasswordMutation } from "../shared/services/api";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "@/features/snackbar";
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const defaultValues = {
   password: '',
-  confirmPassword: ''
+  confirm_password: ''
 };
 
 export default function useResetPasswordForm() {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  useEffect(() => {
-    console.log({ token })
-  }, [token]);
-  
+  const { token } = useParams();
+  const navigate = useNavigate();
   const showSnackbar = useSnackbar();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const {
     register,
     handleSubmit,
     watch,
+    reset: resetForm,
     formState: { errors },
   } = useForm({ defaultValues });
   const password = watch("password");
@@ -35,6 +32,8 @@ export default function useResetPasswordForm() {
           severity: "success",
           variant: "filled",
         });
+        resetForm();
+        navigate('/login', { replace: true, state: {source: 'RESET_PASSWORD'} });
       }
     } catch (err) {
       if (!err.status || typeof err.status !== "number") {

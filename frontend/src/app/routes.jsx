@@ -16,7 +16,7 @@ export default createBrowserRouter([
             { path: 'register', element: <RegisterPage /> },
             { path: 'login', element: <LoginPage /> },
             { path: 'forgot-password', element: <ForgotPasswordPage /> },
-            { path: 'reset-password', element: <ResetPasswordPage /> },
+            { path: 'reset-password/:token', element: <ResetPasswordPage /> },
         ]
     }
 ]);

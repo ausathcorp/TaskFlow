@@ -34,7 +34,7 @@ const api = createApi({
         }),
         resetPassword: builder.mutation({
             query: ({token, data}) => ({
-                url: `/auth/reset-password?token=${token}`,
+                url: `/auth/reset-password/${token}`,
                 method: 'POST',
                 body: data
             })
