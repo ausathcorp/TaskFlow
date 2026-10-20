@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
@@ -6,8 +7,10 @@ import Stack from "@mui/material/Stack";
 import { Link } from 'react-router-dom'
 import useResetPasswordForm from "./useResetPasswordForm";
 import PasswordField from "../shared/components/PasswordField";
+import PasswordHelper from "../shared/components/PasswordHelper";
 
 export default function ResetPasswordPage() {
+  const [isFocused, setIsFocused] = useState(false);
   const { 
     isLoading, 
     handleSubmit, 
@@ -38,10 +41,12 @@ export default function ResetPasswordPage() {
       </Typography>
 
       <Stack spacing={2}>
+
+        <PasswordHelper {...{password, isFocused}} />
         
         <PasswordField
           label="Password"
-          autoComplete="new-password"
+          onFocus={(e) => setIsFocused(true)}
           {...register("password", {
             required: "Password is required",
           })}
@@ -51,7 +56,6 @@ export default function ResetPasswordPage() {
         
         <PasswordField
           label="Confirm Password"
-          autoComplete="new-password"
           {...register("confirm_password", {
             required: "Confirm password is required",
             validate: (value) =>

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
@@ -20,8 +21,10 @@ import UsernameField from "../shared/components/UsernameField";
 import PasswordField from "../shared/components/PasswordField";
 import EmailField from "../shared/components/EmailField";
 import ContactField from "../shared/components/ContactField";
+import PasswordHelper from "../shared/components/PasswordHelper";
 
 export default function Register() {
+  const [isFocused, setIsFocused] = useState(false);
   const {
     control,
     isLoading,
@@ -131,8 +134,11 @@ export default function Register() {
               error={!!errors.username}
               helperText={errors.username?.message}
             />
+
+            <PasswordHelper {...{password, isFocused}} />
             <PasswordField
               label="Password"
+              onFocus={(e) => setIsFocused(true)}
               {...register("password", {
                 required: "Password is required",
               })}

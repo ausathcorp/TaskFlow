@@ -28,7 +28,7 @@ export default function App(){
                     <Link to='/register'>Open register</Link>
                     <Link to='/login'>Open login</Link>
                     <Link to='/forgot-password'>Open forgot password</Link>
-                    <Link to='/reset-password'>Open reset password</Link>
+                    <Link to='/reset-password/token-123'>Open reset password</Link>
                 </Stack>
             </Paper>
         </Box>
