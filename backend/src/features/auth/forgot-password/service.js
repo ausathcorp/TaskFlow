@@ -54,7 +54,7 @@ export async function sendResetPasswordEmail(payload) {
 
   let text = await ejs.renderFile(textPath, payload);
   let html = await ejs.renderFile(htmlPath, payload);
-  let data = sendEmail({
+  sendEmail({
     from: "TaskFlow <aliyufaruk11@gmail.com>",
     to: payload.email,
     replyTo: "no-reply@example.com",
@@ -76,5 +76,7 @@ export async function sendResetPasswordEmail(payload) {
         filename: "Brand Logo",
       },
     ],
-  });
+  })
+  .then(() => console.log('Email sent'))
+  .catch((err) => console.log('Send Email Failed', err?.message))
 }

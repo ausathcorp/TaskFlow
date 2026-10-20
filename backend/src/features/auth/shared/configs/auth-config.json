@@ -1,7 +1,5 @@
 {
-  "authState": {
-    "maintenanceMode": false
-  },
+  "state": "running",
   "sessionSettings": {
     "defaultExpiresDays": 1,
     "rememberMeExpiresDays": 30,
@@ -25,14 +23,21 @@
   "login": {
     "state": "running",
     "limiter": {
-      "window_ms": 120,
+      "window_ms": 300,
       "limit": 5
     }
   },
   "forgot_password": {
     "state": "running",
     "limiter": {
-      "window_ms": 30,
+      "window_ms": 60,
+      "limit": 5
+    }
+  },
+  "reset_password": {
+    "state": "running",
+    "limiter": {
+      "window_ms": 60,
       "limit": 5
     }
   }

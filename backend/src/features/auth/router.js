@@ -10,6 +10,7 @@ import {
 
 import * as login from "./login/index.js";
 import * as forgot from "./forgot-password/index.js";
+import * as reset from './reset-password/index.js'
 
 const router = express.Router();
 
@@ -38,6 +39,15 @@ router.post(
   forgot.forgotValidator,
   forgot.forgotMiddleware,
   forgot.forgotController
+);
+
+//Auth Reset password route
+router.post(
+  '/reset-password/:token',
+  reset.resetLimiter,
+  reset.resetValidator,
+  reset.resetMiddleware,
+  reset.resetController
 );
 
 router.use(authRouteErrorHandler);

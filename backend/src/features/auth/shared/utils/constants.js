@@ -9,3 +9,7 @@ export const Time = ({
     HALF_YEAR: 6 * 30 * 24 * 60 * 60 * 1000,
     YEAR: 12 * 30 * 24 * 60 * 60 * 1000
 });
+
+export const tokenType = ({
+  RESET_PASSWORD: 'resetPassword'
+})

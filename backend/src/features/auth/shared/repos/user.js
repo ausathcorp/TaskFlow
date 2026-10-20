@@ -17,3 +17,10 @@ export async function userExistsQuery(query){
 export function getUserQuery(query){
     return User.findOne(query);
 }
+
+export function findAndUpdateUserDocument(_id, updates, options=undefined){
+  return User.findOneAndUpdate({ _id }, updates, options || {
+    returnDocument: 'after',
+    runValidators: true
+  })
+}
