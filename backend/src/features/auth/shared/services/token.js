@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
-import { Time, tokenType } from "../utils/constants.js";
+import { Time, TokenType } from "../utils/constants.js";
 import { authConfig } from "../configs/index.js";
 import AuthError from '../utils/auth-error.js'
 
 const { cookieOptions } = authConfig.sessionSettings;
+
 export function setAccessToken(res, accessToken) {
   let { httpOnly, sameSite, secure, accessTokenMaxAge } = cookieOptions;
-  res.cookie("accessToken", accessToken, {
+  res.cookie("access_token", accessToken, {
     httpOnly,
     sameSite,
     secure,
@@ -25,7 +26,7 @@ export function setRefreshToken(res, refreshToken, rememberMe = false) {
   let refreshMaxAge = rememberMe
     ? rememberMeRefreshTokenMaxAge
     : defaultRefreshTokenMaxAge;
-  res.cookie("refreshToken", refreshToken, {
+  res.cookie("refresh_token", refreshToken, {
     httpOnly,
     sameSite,
     secure,
@@ -33,65 +34,83 @@ export function setRefreshToken(res, refreshToken, rememberMe = false) {
   });
 }
 
-export async function createAccessToken(payload) {
-  let expiresIn = cookieOptions.accessTokenMaxAge;
-  let token = await createToken(payload, `${expiresIn}m`);
+export function setTokens(res, accessToken, refreshToken){
+  setAccessToken(res, accessToken);
+  setRefreshToken(res, refreshToken);
+}
+
+async function __createToken__(payload, secret, customOptions=undefined) {
+  let options = ({
+    issuer: process.env.APP_NAME || 'taskFlow',
+    audience: process.env.AUDIENCE || 'taskFlow-users',
+    algorithm: 'HS256'
+  });
+  if(customOptions) Object.assign(options, customOptions);
+  let token = await jwt.sign(payload, secret, options);
   return token;
 }
 
-export async function createRefreshToken(payload, rememberMe = false) {
-  let expiresIn = rememberMe
+async function __createAccessToken__(payload) {
+  let duration = cookieOptions.accessTokenMaxAge;
+  let token = await __createToken__(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: `${duration}m` });
+  return token;
+}
+
+async function __createRefreshToken__(payload) {
+  let { rememberMe } = payload;
+  let duration = rememberMe
     ? cookieOptions.rememberMeRefreshTokenMaxAge
     : cookieOptions.defaultRefreshTokenMaxAge;
-  let token = await createToken(payload, `${expiresIn}d`);
+  let token = await __createToken__(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: `${duration}d` });
   return token;
 }
 
-export async function createToken(payload, duration = null) {
-  let token = await jwt.sign(payload, process.env.PRIVATE_KEY, {
-    algorithm: "RS256",
-    expiresIn: duration,
-    issuer: "taskFlow",
-    audience: "taskFlow-users",
-  });
+async function __createResetToken__(payload) {
+  let duration = '10m';
+  let token = await __createToken__(payload, process.env.RESET_PASSWORD_SECRET, { expiresIn: duration });
   return token;
 }
 
-export async function createResetToken(payload, duration = "15m") {
-  let token = await jwt.sign(payload, process.env.RESET_PASSWORD_SECRET, {
-    algorithm: "HS512",
-    expiresIn: duration,
-    issuer: 'taskFlow',
-    audience: 'taskFlow-users'
-  });
-  return token;
+const { 
+  RESET_PASSWORD,
+  REFRESH_TOKEN,
+  ACCESS_TOKEN,
+} = TokenType;
+
+const tokenCreators = ({
+  [ACCESS_TOKEN]: __createAccessToken__,
+  [REFRESH_TOKEN]: __createRefreshToken__,
+  [RESET_PASSWORD]: __createResetToken__
+});
+
+export async function createToken(payload, tokenType){
+  if(!(tokenType in tokenCreators))
+    throw new Error(`Invalid token type ${tokenType}`);
+  return tokenCreators[tokenType](payload);
 }
 
-async function openToken(token, secret, options=undefined) {
+async function __openToken__(token, secret, options=undefined) {
   try {
-    console.log({token, secret})
     const decoded = await jwt.verify(token, secret, options);
     return decoded;
   } catch (err) {
-    console.log(err);
     if(err.name === 'TokenExpiredError')
       throw new AuthError(401, 'Session expired');
     throw new AuthError(401, 'Invalid request token');
   }
 }
 
-const { RESET_PASSWORD } = tokenType;
+async function __verifyResetToken__(token) {
+  return await 
+    __openToken__(token, process.env.RESET_PASSWORD_SECRET);
+}
+
 const tokenVerifiers = ({
-  [RESET_PASSWORD]: verifyResetPasswordToken,
+  [RESET_PASSWORD]: __verifyResetToken__,
 })
 
 export async function verifyToken(token, tokenType){
-  if(!tokenType in tokenVerifiers)
+  if(!(tokenType in tokenVerifiers))
     throw new Error(`Invalid token type ${tokenType}`);
   return tokenVerifiers[tokenType](token);
-}
-
-async function verifyResetPasswordToken(token) {
-  return await 
-    openToken(token, process.env.RESET_PASSWORD_SECRET);
 }

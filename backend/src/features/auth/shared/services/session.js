@@ -1,6 +1,6 @@
 import { insertSessionDocument } from "../repos/session.js";
-import { Time } from "../utils/constants.js";
-import { createAccessToken, createRefreshToken } from "./token.js";
+import { Time, TokenType } from "../utils/constants.js";
+import { createToken } from "./token.js";
 import { authConfig } from "../configs/index.js";
 import { generateRefreshHash } from "./hash.js";
 
@@ -24,21 +24,25 @@ export async function createSession(user, rememberMe = false) {
     maxExpiredAt,
   });
 
-  let accessToken = await createAccessToken({
-    userId,
-    sessionId,
-    role
-  });
+  let accessToken = await createToken(
+    {
+      userId,
+      sessionId,
+      role,
+    },
+    TokenType.ACCESS_TOKEN,
+  );
 
-  let refreshToken = await createRefreshToken(
+  let refreshToken = await createToken(
     {
       userId,
       sessionId,
       refreshHash,
       expiredAt,
-      role
+      role,
+      rememberMe,
     },
-    rememberMe,
+    TokenType.REFRESH_TOKEN,
   );
 
   return { accessToken, refreshToken };

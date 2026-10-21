@@ -10,6 +10,8 @@ export const Time = ({
     YEAR: 12 * 30 * 24 * 60 * 60 * 1000
 });
 
-export const tokenType = ({
-  RESET_PASSWORD: 'resetPassword'
+export const TokenType = ({
+  RESET_PASSWORD: 'resetPassword',
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
 })

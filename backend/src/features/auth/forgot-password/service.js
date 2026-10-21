@@ -1,14 +1,15 @@
 import { dbTransaction } from "../shared/services/database.js";
 import { createVerification } from "../shared/services/verification.js";
 import { generateRefreshHash } from "../shared/services/hash.js";
-import { createResetToken } from "../shared/services/token.js";
+import { createToken } from "../shared/services/token.js";
+import { TokenType } from "../shared/utils/constants.js";
 import { join } from "node:path";
 import ejs from "ejs";
 import { sendEmail } from "#/features/google/index.js";
 
 export async function createAndSendVerification(user) {
   let { _id: userId, username, email } = user;
-  let type = 'reset-password';
+  let type = "reset-password";
   let hash = generateRefreshHash();
   await dbTransaction(async () => {
     let { _id: verificationId } = await createVerification({
@@ -17,17 +18,25 @@ export async function createAndSendVerification(user) {
       type,
     });
 
-    let resetToken = await createResetToken({ 
-      type,
-      hash,
-      verificationId, 
-      action: "RESET" });
-    
-    let cancelToken = await createResetToken({ 
-      type,
-      hash,
-      verificationId, 
-      action: "CANCEL" });
+    let resetToken = await createToken(
+      {
+        type,
+        hash,
+        verificationId,
+        action: "RESET",
+      },
+      TokenType.RESET_PASSWORD,
+    );
+
+    let cancelToken = await createToken(
+      {
+        type,
+        hash,
+        verificationId,
+        action: "CANCEL",
+      },
+      TokenType.RESET_PASSWORD,
+    );
 
     let {
       RESET_PASSWORD_URL = "http://localhost:3000/reset-password",
@@ -59,11 +68,11 @@ export async function sendResetPasswordEmail(payload) {
     to: payload.email,
     replyTo: "no-reply@example.com",
     subject: "Reset Password Verification",
-    priority: 'high',
+    priority: "high",
     text,
     html,
     headers: {
-      "In-Reply-To": 'aliyufaruk11@gmail.com',
+      "In-Reply-To": "aliyufaruk11@gmail.com",
       "X-Email-Type": "Verification",
       "X-User-ID": payload.userId,
       "X-Application": "TaskFlow",
@@ -77,6 +86,6 @@ export async function sendResetPasswordEmail(payload) {
       },
     ],
   })
-  .then(() => console.log('Email sent'))
-  .catch((err) => console.log('Send Email Failed', err?.message))
+    .then(() => console.log("Email sent"))
+    .catch((err) => console.log("Send Email Failed", err?.message));
 }
