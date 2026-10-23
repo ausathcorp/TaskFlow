@@ -11,7 +11,8 @@ import {
 import * as login from "./login/index.js";
 import * as forgot from "./forgot-password/index.js";
 import * as reset from './reset-password/index.js'
-import meController from './authentication/meController.js'
+import * as me from './me/index.js'
+
 import authenticate from './authentication/authenticate.js'
 
 const router = express.Router();
@@ -55,7 +56,7 @@ router.post(
 router.get(
   '/me',
   authenticate(),
-  meController
+  me.meController
 );
 
 router.use(authRouteErrorHandler);

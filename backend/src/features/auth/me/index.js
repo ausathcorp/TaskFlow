@@ -1,0 +1,1 @@
+export { default as meController } from './controller.js'
