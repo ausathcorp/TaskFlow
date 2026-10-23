@@ -59,3 +59,10 @@ export async function getUserByEmail(email){
         .exec();
     return user;
 }
+export async function getUserById(_id){
+    let user = await
+    getUserQuery({ _id })
+        .lean()
+        .exec();
+    return user;
+}

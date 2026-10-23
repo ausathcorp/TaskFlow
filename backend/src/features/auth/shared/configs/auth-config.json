@@ -8,7 +8,7 @@
       "httpOnly": true,
       "sameSite": "strict",
       "secure": false,
-      "accessTokenMaxAge": 15,
+      "accessTokenMaxAge": 3,
       "defaultRefreshTokenMaxAge": 1,
       "rememberMeRefreshTokenMaxAge": 30
     }
