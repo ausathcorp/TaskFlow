@@ -55,6 +55,7 @@ router.post(
 
 router.get(
   '/me',
+  me.meLimiter,
   authenticate(),
   me.meController
 );

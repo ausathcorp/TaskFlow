@@ -5,6 +5,9 @@ import { dbTransaction } from '../shared/services/database.js'
 import { getSessionExpiryDates } from '../shared/services/session.js'
 import { generateRefreshHash } from '../shared/services/hash.js'
 import { Session } from '../shared/models/session.js'
+import { User } from '../shared/models/user.js'
+import { getUserById } from '../shared/services/user.js'
+import { transformUserDocument } from '../shared/utils/formats.js'
 
 export async function getAndRevokeSession(refreshToken) {
   let newRefreshToken;
@@ -52,4 +55,17 @@ export async function getNewAccessToken(refreshToken) {
     TokenType.ACCESS_TOKEN
   );
   return newAccessToken
+}
+
+export async function getUserProfile(userId) {
+  const user = await getUserById(userId);
+  return transformUserDocument(user);
+}
+
+export async function getUserInfo(userId) {
+  const user = await 
+    User.findById(userId).
+    select('_id role status').
+    lean();
+  return user;
 }
