@@ -20,14 +20,14 @@ export async function emailExists(email){
 }
 
 export async function createUserAndSession(registerUser){
-    let accessToken, refreshToken, user;
+    let accessToken, refreshToken;
     await dbTransaction(async() => {
-        user = await createUser(registerUser);
+        let user = await createUser(registerUser);
         let sessionData = await createSession(user);
         accessToken = sessionData.accessToken;
         refreshToken = sessionData.refreshToken;
     });
-    return { user, accessToken, refreshToken }
+    return { accessToken, refreshToken }
 }
 
 export async function createUser(registerUser){

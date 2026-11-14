@@ -11,7 +11,6 @@ export async function loginController(req, res, next){
     setRefreshToken(res, refreshToken, rememberMe);
     return res.status(200).json({
         success: true,
-        user,
         message: 'Login Successfully'
     })
 }
