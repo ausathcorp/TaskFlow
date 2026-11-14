@@ -3,7 +3,7 @@ import {
     Paper,
     Collapse,
     Container } from '@mui/material'
-import AppLogo from '../components/Applogo'
+import AppLogo from '@/shared/components/Applogo'
 import { Outlet } from 'react-router-dom'
 
 export default function FormLayout(){

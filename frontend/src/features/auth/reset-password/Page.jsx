@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import useResetPasswordForm from "./useResetPasswordForm";
 import PasswordField from "../shared/components/PasswordField";
 import PasswordHelper from "../shared/components/PasswordHelper";
@@ -17,7 +17,16 @@ export default function ResetPasswordPage() {
     errors, 
     register, 
     password, 
-    onSubmit } = useResetPasswordForm();
+    onSubmit } =
+    useResetPasswordForm();
+  const { onBlur, ...passwordFields } = register('password', { required: 'Password is required'});
+  const handlePasswordFocus = (event) => {
+    setIsFocused(true);
+  }
+  const handlePasswordBlur = (event) => {
+    onBlur(event);
+    setIsFocused(false);
+  }
   return (
     <Paper
       component="form"
@@ -41,25 +50,23 @@ export default function ResetPasswordPage() {
       </Typography>
 
       <Stack spacing={2}>
+        <PasswordHelper {...{ password, isFocused }} />
 
-        <PasswordHelper {...{password, isFocused}} />
-        
         <PasswordField
           label="Password"
-          onFocus={(e) => setIsFocused(true)}
-          {...register("password", {
-            required: "Password is required",
-          })}
+          onFocus={handlePasswordFocus}
+          onBlur={handlePasswordBlur}
+          {...passwordFields}
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        
+
         <PasswordField
           label="Confirm Password"
           {...register("confirm_password", {
             required: "Confirm password is required",
             validate: (value) =>
-              (value === password) || "Passwords do not matches",
+              value === password || "Passwords do not matches",
           })}
           error={!!errors.confirm_password}
           helperText={errors.confirm_password?.message}

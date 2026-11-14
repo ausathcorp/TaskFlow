@@ -34,6 +34,14 @@ export default function Register() {
     password,
     errors,
   } = useRegisterForm();
+  const { onBlur, ...passwordFields } = register('password', { required: 'Password is required'});
+  const handlePasswordFocus = (event) => {
+    setIsFocused(true);
+  }
+  const handlePasswordBlur = (event) => {
+    onBlur(event);
+    setIsFocused(false);
+  }
   return (
     <Paper
       component="form"
@@ -138,10 +146,9 @@ export default function Register() {
             <PasswordHelper {...{password, isFocused}} />
             <PasswordField
               label="Password"
-              onFocus={(e) => setIsFocused(true)}
-              {...register("password", {
-                required: "Password is required",
-              })}
+              onFocus={handlePasswordFocus}
+              onBlur={handlePasswordBlur}
+              {...passwordFields}
               error={!!errors.password}
               helperText={errors.password?.message}
             />
