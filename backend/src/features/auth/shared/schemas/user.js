@@ -1,58 +1,73 @@
-import { Schema } from 'mongoose'
-import { capitalize } from '../utils/formats.js'
+import { Schema } from "mongoose";
+import { capitalize } from "../utils/formats.js";
 
-const profileSchema = new Schema({
+const profileSchema = new Schema(
+  {
     firstName: {
-        type: String,
-        set: name => capitalize(name)
+      type: String,
+      set: (name) => capitalize(name),
     },
     lastName: {
-        type: String,
-        set: name => capitalize(name) 
+      type: String,
+      set: (name) => capitalize(name),
     },
     contact: String,
     gender: {
-        type: String, 
-        enums: ['male', 'female']
+      type: String,
+      enums: ["male", "female"],
     },
     dateOfBirth: Date,
-    address: String
-}, {_id: false});
+    address: String,
+  },
+  { _id: false },
+);
 
-export const userSchema = new Schema({
+export const userSchema = new Schema(
+  {
     avatar: String,
     username: {
-        type: String,
-        minLength: 5,
-        required: true,
-        unique: true,
-        lowercase: true
+      type: String,
+      minLength: 5,
+      required: true,
+      unique: true,
+      lowercase: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     passwordHash: {
-        type: String,
-        required: true,
-        select: false
+      type: String,
+      required: true,
+      select: false,
     },
     role: {
-        type: String,
-        required: true,
-        index: true,
-        enums: ['Admin', 'Manager', 'Employee'],
-        default: () => 'Employee'
+      type: String,
+      required: true,
+      index: true,
+      enums: ["Admin", "Manager", "Employee"],
+      default: () => "Employee",
+    },
+    status: {
+      type: String,
+      enums: ['Active', 'InActive', 'Deleted', 'Suspended'],
+      default: () => "Active",
+    },
+    emailVerified: {
+      type: Boolean,
+      default: () => false,
     },
     googleId: {
-        type: String,
-        unique: true,
-        select: false
+      type: String,
+      unique: true,
+      select: false,
     },
     enable2fa: {
-        type: Boolean,
-        default: () => false
+      type: Boolean,
+      default: () => false,
     },
-    profile: profileSchema
-}, { timestamps: true });
+    profile: profileSchema,
+  },
+  { timestamps: true },
+);

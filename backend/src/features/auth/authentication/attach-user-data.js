@@ -1,8 +1,8 @@
 import AuthError from '../shared/utils/auth-error.js'
 import { getUserInfo } from './service.js'
 
-export default async function attachUserData(){
-  return (req, res, next) => {
+export default function attachUserData(){
+  return async   (req, res, next) => {
     const { accessToken } = req;
     if(!accessToken)
       throw new AuthError(401, 'Unauthorized access')
