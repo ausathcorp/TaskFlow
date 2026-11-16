@@ -3,5 +3,5 @@ import { transformUserDocument } from '../shared/utils/formats.js'
 
 export async function getUserProfile(userId) {
   const user = await getUserById(userId);
-  return transformUserDocument(user);
+  return user; //transformUserDocument(user);
 }

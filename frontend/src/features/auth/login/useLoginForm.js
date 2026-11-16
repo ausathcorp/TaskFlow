@@ -1,4 +1,4 @@
-import { useLoginMutation } from "../shared/services/api";
+import authApi, { useLoginMutation } from "../shared/services/api";
 import { setAuthenticatedUser } from "../shared/services/authSlice";
 
 import { useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ const defaultValues = {
 
 export default function useLoginForm() {
   const showSnackbar = useSnackbar();
+  const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginMutation();
   const {
     register,
@@ -35,6 +36,8 @@ export default function useLoginForm() {
           variant: "filled",
         });
         reset();
+        authApi.util.invalidateTags(['Auth']);
+        navigate('/dashboard', { replace: true });
       }
     } catch (err) {
       if (!err.status || typeof err.status === "string")

@@ -5,7 +5,7 @@ import router from "./routes";
 import { StoreProvider } from "./providers";
 import { AppThemeProvider } from "@/features/theme";
 import { SnackbarProvider } from "@/features/snackbar";
-import LoadingPage from '@/shared/components/LoadingPage'
+import LoadingPage from '@/shared/components/LoadingPage';
 
 (async () => {
   if (!import.meta.env.DEV) return;
@@ -24,5 +24,5 @@ createRoot(document.getElementById("root")).render(
         </SnackbarProvider>
       </AppThemeProvider>
     </StoreProvider>
-  </StrictMode>,
+  </StrictMode>
 );

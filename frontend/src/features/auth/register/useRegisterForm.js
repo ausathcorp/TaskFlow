@@ -1,4 +1,4 @@
-import { useRegisterMutation } from "../shared/services/api";
+import authApi, { useRegisterMutation } from "../shared/services/api";
 import { setAuthenticatedUser } from "../shared/services/authSlice";
 
 import { useForm } from "react-hook-form";
@@ -46,6 +46,8 @@ export default function useRegisterForm() {
           variant: "filled",
         });
         reset();
+        authApi.util.invalidateTags(['Auth']);
+        navigate('/dashboard', { replace: true });
       }
     } catch (err) {
       if (!err.status || typeof err.status === "string")
