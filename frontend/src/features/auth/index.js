@@ -1,0 +1,1 @@
+export { default as useCurrentUser } from './shared/hooks/useCurrentUser'
