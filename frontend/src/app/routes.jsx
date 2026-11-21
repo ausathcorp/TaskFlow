@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 const App = lazy(() => import("./App"));
 //Layouts
+const AppLayout = lazy(() => import("./AppLayout"));
 const FormLayout = lazy(() => import("@/features/auth/shared/layouts/Form"));
 const ProtectedRoutesLayout = lazy(() => import("@/features/auth/shared/layouts/ProtectedRoutes"));
 //Pages
@@ -12,7 +13,6 @@ const ForgotPasswordPage = lazy(() => import("@/features/auth/forgot-password/Pa
 const ResetPasswordPage = lazy(() => import("@/features/auth/reset-password/Page"));
 
 export default createBrowserRouter([
-  { path: "/", element: <App /> },
   {
     element: <FormLayout />,
     children: [
@@ -25,7 +25,12 @@ export default createBrowserRouter([
   {
     element: <ProtectedRoutesLayout />,
     children: [
-      { path: '/dashboard', element: <h1>Welcome to Dashboard</h1>}
+      { 
+        element: <AppLayout />,
+        children: [
+          { path: '/dashboard?', element: <div>User Dashboard</div> }
+        ]
+      }
     ]
   }
 ]);
