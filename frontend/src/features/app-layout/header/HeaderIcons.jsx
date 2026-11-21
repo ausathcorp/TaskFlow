@@ -1,4 +1,5 @@
 import Stack from "@mui/material/Stack";
+import { ThemeToggle } from '@/features/theme'
 
 export default function HeaderControls(){
   return(
@@ -10,7 +11,7 @@ export default function HeaderControls(){
         alignItems: 'center',
         justifyContent: 'start',
       }}>
-      
+      <ThemeToggle />
     </Stack>
   )
 };

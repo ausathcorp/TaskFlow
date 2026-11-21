@@ -17,8 +17,6 @@ export default function AppHeader() {
       sx={{
         p: 0,
         gridArea: "header",
-        bgcolor: 'background.paper',
-        color: 'text.primary'
       }}
     >
       <Toolbar 
@@ -26,6 +24,7 @@ export default function AppHeader() {
         sx={{ 
           alignItems: 'center',
           px: 1,
+          color: 'text.primary',
         }}>
         {!isDesktop && <SidebarToggle />}
         {!isDesktop && <Applogo width={32} />}
