@@ -51,7 +51,11 @@ const selectGetMeResult = (state) =>
 
 export const selectCurrentUser = createSelector(
   [selectGetMeResult],
-  (result) => result?.data?.user
+  ({ data, isFetching, isError }) => ({
+    user: data?.user,
+    isFetching,
+    isError,
+  })
 );
 
 export const {
