@@ -2,14 +2,16 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useCurrentUser } from '../shared/hooks/useCurrentUser'
 
-export function UserInfo(){
-  const { user } = useCurrentUser();
+export function UserInfo({ alignItems='start' }){
+  const user = useCurrentUser();
   const fullname = [
     user?.profile.firstName,
     user?.profile.lastName
   ].join(' ');
   return(
-    <Stack spacing={0}>
+    <Stack 
+      spacing={0}
+      sx={{alignItems}}>
       <Typography 
         variant="subtitle2"
         sx={{
@@ -18,7 +20,7 @@ export function UserInfo(){
         }}>
         {fullname}
       </Typography>
-      <Typography variant="caption">{user.role}</Typography>
+      <Typography variant="caption">{user?.role}</Typography>
     </Stack>
   )
 }
