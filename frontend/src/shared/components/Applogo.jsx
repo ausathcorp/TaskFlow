@@ -1,16 +1,13 @@
 import brandLogo from "@/public/images/brand_logo.png";
 import Box from "@mui/material/Box";
 
-export default function AppLogo() {
+export default function AppLogo({ width = 1, height = "auto" }) {
   return (
     <Box
       component="img"
       src={brandLogo}
       alt="TaskFlow Brand Logo"
-      sx={{
-        width: 1,
-        height: "auto",
-      }}
+      sx={{ width, height }}
     />
   );
 }
