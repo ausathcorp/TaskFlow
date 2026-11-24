@@ -11,7 +11,6 @@ export default function AppLayout(){
     <AbsoluteContainer
       sx={(theme) => ({
         display: 'grid',
-        gap: 0.1,
         gridTemplateAreas: `
           "header"
           "main"`,
