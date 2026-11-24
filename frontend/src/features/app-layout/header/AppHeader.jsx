@@ -1,7 +1,7 @@
 import AppBar from "@/shared/components/AppPaper";
 import Toolbar from "@mui/material/Toolbar";
 import useDeviceType from "@/shared/hooks/useDeviceType";
-
+import { UserProfile } from '@/features/auth'
 import Applogo from '@/shared/components/Applogo'
 import SidebarToggle from '../sidebar/SidebarToggle'
 import HeaderTitle from './HeaderTitle'
@@ -30,6 +30,7 @@ export default function AppHeader() {
         {!isDesktop && <Applogo width={32} />}
         <HeaderTitle />
         <HeaderIcons />
+        <UserProfile />
       </Toolbar>
     </AppBar>
   );

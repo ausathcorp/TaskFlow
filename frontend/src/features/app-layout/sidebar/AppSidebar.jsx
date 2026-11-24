@@ -17,9 +17,11 @@ export default function AppSidebar(){
       onClose={closeSidebar}
       slotProps={{
         paper: {
+          elevation: 0,
           component: Stack,
           sx: {
             p: 0,
+            boxShadow: 2,
             width: {
               xs: 220,
               md: 220,
