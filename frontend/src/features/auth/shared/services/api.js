@@ -43,6 +43,13 @@ const authApi = createApi({
       query: () => '/auth/me',
       providesTags: ['Auth'],
     }),
+    logout: builder.mutation({
+      query: (userId) => ({
+        url: '/auth/logout',
+        method: 'POST',
+        body: { userId }
+      }),
+    }),
   }),
 });
 
@@ -60,5 +67,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useGetMeQuery,
+  useLogoutMutation,
 } = authApi;
 export default authApi;

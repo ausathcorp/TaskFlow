@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { useCurrentUser } from "../shared/hooks/useCurrentUser";
 import { UserAvatar } from "./UserAvatar";
 import { UserInfo } from "./UserInfo";
+import { LogoutButton } from '../logout/LogoutButton'
 
 export function UserAccountPopover({ open, anchorEl, handleClose }) {
   const user = useCurrentUser();
@@ -47,6 +48,13 @@ export function UserAccountPopover({ open, anchorEl, handleClose }) {
         <UserInfo alignItems="center" />
         <Typography sx={{ fontSize: 14 }}>{user?.email}</Typography>
       </Stack>
+      <LogoutButton
+        sx={{
+          mt: 10,
+          width: .9,
+          mx: 'auto'
+        }} 
+        variant='outlined' />
     </Popover>
   );
 }
