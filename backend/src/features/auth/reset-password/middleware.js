@@ -4,7 +4,7 @@ import { TokenType } from '../shared/utils/constants.js'
 
 export default async function resetMiddleware(req, res, next){
   const { token } = req.params;
-  const verification = await verifyToken(token, tokenType.RESET_PASSWORD);
+  const verification = await verifyToken(token, TokenType.RESET_PASSWORD);
   req.verification = verification;
   return next();
 }
