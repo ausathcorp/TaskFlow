@@ -12,6 +12,7 @@ import * as login from "./login/index.js";
 import * as forgot from "./forgot-password/index.js";
 import * as reset from './reset-password/index.js'
 import * as me from './me/index.js'
+import * as logout from './logout/index.js'
 
 import authenticate from './authentication/authenticate.js'
 
@@ -59,6 +60,14 @@ router.get(
   authenticate(),
   me.meController
 );
+
+//Auth Logout Route
+router.post(
+  '/logout',
+  authenticate(),
+  logout.logoutValidator,
+  logout.logoutController
+)
 
 router.use(authRouteErrorHandler);
 
